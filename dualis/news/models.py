@@ -51,7 +51,7 @@ class Post(models.Model):
     subtitle = models.CharField(max_length=255, blank=True)
     slug = models.SlugField(max_length=255, unique=True)
     body = models.TextField(blank=True)
-    photo = models.ImageField()
+    photo = models.ImageField(upload_to='photos/%Y/%m/%d/')
     meta_description = models.CharField(max_length=150, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
