@@ -25,6 +25,10 @@ class PostAdmin(admin.ModelAdmin):
         "publish_date",
         "published",
     )
+    # list_display_link = (
+    #     "id",
+    #     "title",
+    # )
     list_filter = (
         "published",
         "publish_date",
