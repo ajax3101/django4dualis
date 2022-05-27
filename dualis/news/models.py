@@ -1,3 +1,4 @@
+from tabnanny import verbose
 from django.conf import settings
 from django.db import models
 
@@ -20,6 +21,11 @@ bio — опциональное небольшое био («о себе»).
 '''
 
 class Profile(models.Model):
+    class Meta:
+        verbose_name = 'Профіль'
+        verbose_name_plural = 'Профілі'
+
+
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.PROTECT,
@@ -34,6 +40,11 @@ class Profile(models.Model):
 # В модели Tag будет единственное поле, короткое имя тега
 
 class Tag(models.Model):
+    class Meta:
+        verbose_name = 'Тег'
+        verbose_name_plural = 'Теги'
+
+
     name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
@@ -45,6 +56,8 @@ class Tag(models.Model):
 
 class Post(models.Model):
     class Meta:
+        verbose_name = 'Новину'
+        verbose_name_plural = 'Новини'
         ordering = ["-publish_date"]
 
     title = models.CharField(max_length=255, unique=True)
