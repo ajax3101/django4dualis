@@ -1,5 +1,5 @@
 from django.contrib import admin
-from news.models import Profile, Post, Tag
+from news.models import Profile, Post, Tag, Category
 
 
 # Register your models here.
@@ -20,6 +20,7 @@ class PostAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "title",
+        "category",
         "subtitle",
         "slug",
         "publish_date",
@@ -32,6 +33,7 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = (
         "published",
         "publish_date",
+        "category",
     )
     list_editable = (
         "title",
@@ -54,3 +56,18 @@ class PostAdmin(admin.ModelAdmin):
     }
     date_hierarchy = "publish_date"
     save_on_top = True
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    model = Category
+    list_display = (
+        "id",
+        "title"    
+    )
+    list_display_link = (
+         "id",
+         "title"
+    )
+    search_fields = (
+        "title",
+    )

@@ -1,4 +1,6 @@
 from tabnanny import verbose
+from turtle import title
+from unicodedata import category
 from django.conf import settings
 from django.db import models
 
@@ -70,9 +72,23 @@ class Post(models.Model):
     date_modified = models.DateTimeField(auto_now=True, verbose_name = 'Оновлено')
     publish_date = models.DateTimeField(blank=True, null=True, verbose_name = 'Дата публікування')
     published = models.BooleanField(default=False, verbose_name = 'Опубліковано')
+    category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True, verbose_name = 'Категорія')
 
     author = models.ForeignKey(Profile, on_delete=models.PROTECT)
     tags = models.ManyToManyField(Tag, blank=True)
+
+# Модель Category
+# В модели Category будет единственное поле, короткое имя категории
+class Category(models.Model):
+    class Meta:
+        verbose_name = 'Категорію'
+        verbose_name_plural = 'Категорії'
+        ordering = ["title"]
+
+    title = models.CharField(max_length=150, db_index=True, verbose_name='Заголовок категорії')
+
+    def __str__(self):
+        return self.title
 
 
 '''
