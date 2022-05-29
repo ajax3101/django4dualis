@@ -3,6 +3,7 @@ from turtle import title
 from unicodedata import category
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 '''Создаем модели данных для новостей
@@ -86,6 +87,9 @@ class Category(models.Model):
         ordering = ["title"]
 
     title = models.CharField(max_length=150, db_index=True, verbose_name='Заголовок категорії')
+
+    def get_absolute_url(self):
+        return reverse('category', kwargs={"category_id": self.pk})
 
     def __str__(self):
         return self.title

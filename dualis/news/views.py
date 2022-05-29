@@ -18,3 +18,6 @@ def get_category(request, category_id):
     category = Category.objects.get(pk=category_id)
     context = {'news': post, 'category': category, }
     return render(request, 'news/category.html', context)
+
+def view_news(request, news_id):
+    news_item = Post.objects.all()
