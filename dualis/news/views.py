@@ -1,8 +1,6 @@
 from turtle import title
 from unicodedata import category
-from django.shortcuts import render
-from django.http import HttpResponse
-
+from django.shortcuts import render, get_object_or_404
 from .models import Post, Category
 
 
@@ -20,4 +18,7 @@ def get_category(request, category_id):
     return render(request, 'news/category.html', context)
 
 def view_news(request, news_id):
-    news_item = Post.objects.all()
+    #news_item = Post.objects.get(pk=news_id)
+    news_item = get_object_or_404(Post, pk=news_id)
+    context = {'news_item': news_item, }
+    return render(request, 'news/view_news.html', context)

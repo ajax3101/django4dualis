@@ -28,7 +28,7 @@
             <div class="media-body">
                 <h5 class="card-title">{{ item.title }}</h5>
                 <p class="card-text">{{ item.subtitle|linebreaks }}</p>
-                <a href="#" class="btn btn-primary">Читати далі...</a>
+                <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Читати далі...</a>
             </div>
         </div>
 

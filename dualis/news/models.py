@@ -75,6 +75,12 @@ class Post(models.Model):
     published = models.BooleanField(default=False, verbose_name = 'Опубліковано')
     category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True, verbose_name = 'Категорія')
 
+    def get_absolute_url(self):
+        return reverse('view_news', kwargs={"news_id": self.pk})
+    
+    def __str__(self):
+        return self.title
+
     author = models.ForeignKey(Profile, on_delete=models.PROTECT)
     tags = models.ManyToManyField(Tag, blank=True)
 
