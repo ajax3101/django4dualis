@@ -12,10 +12,92 @@
 {% block content %}
 <h1>Додати новину</h1>
 <form action="{% url 'add_news' %}" method="post">
-    {% csrf_token %}
-    {{ form.as_p}}
-    <button type="submit" class="btn btn-primary btn-block">Додати</button>
     
+    <!-- Подделка межсайтового запроса (CSRF)
+    Промежуточный слой CSRF и шаблонный тег предоставляют легкую-в-использовании защиту против Межсайтовой подделки запроса. 
+    Этот тип атак случается, когда злонамеренный Web сайт содержит ссылку, кнопку формы или некоторый javascript, 
+    который предназначен для выполнения некоторых действий на вашем Web сайте, используя учетные данные авторизованного пользователя, 
+    который посещал злонамеренный сайт в своем браузере. Сюда также входит связанный тип атак, ‘login CSRF’, 
+    где атакуемый сайт обманывает браузер пользователя, авторизируясь на сайте с чужими учетными данными.
+    
+    Первая защита против CSRF атак - это гарантирование того, что GET запросы 
+    (и другие ‘безопасные’ методы, определенные в 9.1.1 Safe Methods, HTTP 1.1, RFC 2616) свободны от побочных эффектов. 
+    Запросы через ‘небезопасные’ методы, такие как POST, PUT и DELETE могут быть защищены при помощи шагов, описанных ниже.
+     -->
+    {% csrf_token %}
+
+    
+   
+    <!-- # Три метода вывода формы
+    # №1 -->
+   
+    {{ form.as_p}}
+   
+    
+    {% comment %}
+    <!-- # №2 -->
+    {{ form.non_field.errors }}
+    <div class="mb-3">
+        <label for="{{ form.title.id_for_label }}" class="form-label">Заголовок: </label>
+        {{ form.title }}
+        <div class="invalid-feedback">
+            {{ form.title.errors}}
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="{{ form.subtitle.id_for_label }}" class="form-label">Підзаголовок: </label>
+        {{ form.subtitle }}
+        <div class="invalid-feedback">
+            {{ form.subtitle.errors}}
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="{{ form.slug.id_for_label }}" class="form-label">Слаг: </label>
+        {{ form.slug }}
+        <div class="invalid-feedback">
+            {{ form.slug.errors}}
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="{{ form.body.id_for_label }}" class="form-label">Контент: </label>
+        {{ form.body }}
+        <div class="invalid-feedback">
+            {{ form.body.errors}}
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="{{ form.published.id_for_label }}" class="form-label">Опубліковано: </label>
+        {{ form.published }}
+        <div class="invalid-feedback">
+            {{ form.published.errors}}
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="{{ form.category.id_for_label }}" class="form-label">Категорія: </label>
+        {{ form.category }}
+        <div class="invalid-feedback">
+            {{ form.category.errors}}
+        </div>
+    </div>
+    {% endcomment %}
+
+    {% comment %}
+    <!-- # №3 -->
+
+    {% for field in form %}
+    <div class="form-group">
+        {{ field.label_tag }}
+        {{ field }}
+        <div class="invalid-feedback">
+            {{ field.errors}}
+        </div>
+    </div>
+    {% endfor %}
+    {% endcomment %}
+    <p></p>
+
+    <button type="submit" class="btn btn-primary btn-block">Додати</button>
+
 </form>
 
 {% endblock %}
