@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load social_tags %}
+{% block content %}
+
+<section class="about spad">
+  <div class="container">
+    <div class="about__text">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="about__pic__item__large">
+            <img img class="img-fluid" style="height: 420px; " src="{{ about.get_first_image}}" alt="">
+          </div>
+          <div class="about__pic">
+            {% for item in about.get_images %}
+              <div class="about__pic__item">
+                <img img class="img-fluid" style="height: 420px; " src="{{ item.image.url }}" alt="{{ item.alt }}">
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="about__right__text">
+            {{ about.text|safe }}
+            <div class="about__right__text__social">
+              {% get_social_links as social_links %}
+              {% for item in social_links %}
+                <a href="{{ item.link }}"><img img class="img-fluid" style="height: 20px; width: 20px;" src="{{ item.icon.url }}"></a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

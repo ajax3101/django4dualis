@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block sidebar %}
+
+{% include 'inc/_sidebar.html' %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+
+            <div class="card">
+                <div class="card-header bg-primary text-white"><i class="fa fa-envelope"></i> Зв'яжіться з нами.
+                </div>
+                <div class="card-body">
+                    <form class="form-group" action="{% url 'feedback' %}" method="post">
+
+                        {% csrf_token %}
+                        {{ form.as_p }}
+
+
+                        <button type="submit" class="btn btn-primary text-right">Надіслати</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-4">
+            <div class="card bg-light mb-3">
+                <div class="card-header bg-success text-white text-uppercase"><i class="fa fa-home"></i> Адреса</div>
+                <div class="contact__widget">
+                    <ul>
+                        {% for contact in contacts %}
+                        <li>
+                            <img class="img-fluid" style="height: 20px; width: 20px;" src="{{ contact.icon.url }}">
+                            <span>{{ contact.name }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
